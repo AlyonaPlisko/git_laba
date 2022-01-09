@@ -1,0 +1,45 @@
+<html>
+<head>
+<script type="text/javascript" src="loadxmldoc.js">
+</script>
+</head>
+<body>
+<script type="text/javascript">
+ xmlDoc = loadXMLDoc("timetable.xml");
+ x = xmlDoc.getElementsByTagName("subject");
+ document.write("<h1 align=\"center\">" + x[0].childNodes[0].nodeValue + "</h1>");
+ document.write("<br />");
+  var table = document.createElement("table");
+  table.style.border = '3px solid black';
+  table.align = 'center';
+  table.style.color = 'orange';
+  var gradelist = xmlDoc.getElementsByTagName("gradeList")[0];
+
+   var records = gradelist.getElementsByTagName("gradeRecord");
+    for (var i = 0; i < records.length; i++) {
+        var record = records[i];
+        var id = record.getAttribute("id");
+        var student = record.getElementsByTagName("student")[0].childNodes[0].nodeValue;
+        var grade = record.getElementsByTagName("grade")[0].childNodes[0].nodeValue;
+       
+		   var row = document.createElement("tr");
+        table.appendChild(row);
+        
+        var idCell = document.createElement("td");
+        var studentCell = document.createElement("td");
+        var gradeCell = document.createElement("td");
+        
+        row.appendChild(idCell);
+        row.appendChild(studentCell);
+        row.appendChild(gradeCell);
+        
+        idCell.appendChild(document.createTextNode(id));
+        studentCell.appendChild(document.createTextNode(student))
+        gradeCell.appendChild(document.createTextNode(grade));
+		
+		
+    }
+	 document.body.appendChild(table);
+</script>
+</body>
+</html>
